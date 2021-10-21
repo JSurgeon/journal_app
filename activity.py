@@ -15,8 +15,6 @@ class Activity:
     @duration.deleter
     def duration(self):
         del self._duration
-    
-
 
 #-------------------------#
 
@@ -39,11 +37,23 @@ class Habit(Activity):
 
 
 
-sleep = Activity()
-smoking = Habit()
+#-------------------------#
 
-print(f'smoking truth value is {smoking.occured}')
+class Daily(Activity):
+    def __init__(self, quality):
+        Activity.__init__(self)
+        self._quality = quality
 
-smoking.occured = True
+    @property
+    def quality(self):
+        return self._quality
 
-print(f'smoking truth value is {smoking.occured}')
+    @quality.setter
+    def quality(self, expression):
+        self._quality = expression
+
+    @quality.deleter
+    def quality(self):
+        del self._quality
+
+    
