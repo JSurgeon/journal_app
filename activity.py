@@ -14,8 +14,8 @@ class Activity:
         return self._name
     
     @name.setter
-    def name(self, bool):
-        self._name = bool
+    def name(self, n):
+        self._name = n
     
     @name.deleter
     def name(self):
@@ -27,8 +27,8 @@ class Activity:
         return self._startime
     
     @startime.setter
-    def startime(self, bool):
-        self._startime = bool
+    def startime(self, time):
+        self._startime = time
     
     @startime.deleter
     def startime(self):
@@ -40,8 +40,8 @@ class Activity:
         return self._endtime
     
     @endtime.setter
-    def endtime(self, bool):
-        self._endtime = bool
+    def endtime(self, time):
+        self._endtime = time
     
     @endtime.deleter
     def endtime(self):
@@ -53,8 +53,8 @@ class Activity:
         return self._quality
     
     @quality.setter
-    def quality(self, bool):
-        self._quality = bool
+    def quality(self, qual):
+        self._quality = qual
     
     @quality.deleter
     def quality(self):
@@ -66,8 +66,8 @@ class Activity:
         return self._location
     
     @location.setter
-    def location(self, bool):
-        self._location = bool
+    def location(self, loc):
+        self._location = loc
     
     @location.deleter
     def location(self):
@@ -127,8 +127,8 @@ class Exercise(Activity):
         return self._intensity
 
     @intensity.setter
-    def intensity(self, amount):
-        self._intensity = amount
+    def intensity(self, intens):
+        self._intensity = intens
 
     @intensity.deleter
     def intensity(self):
