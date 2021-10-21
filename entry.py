@@ -3,7 +3,7 @@
 from activity import *
 from datetime import date, datetime
 
-class Day:
+class Entry:
     """
     Day is a base parent class
     Attributes:
@@ -11,12 +11,16 @@ class Day:
         Activity activities[]
         Habit habits[]
         Exercise workouts[]
+        datetime date
+        datetime time
     """
     def __init__(self, rest, acts, habs, works):
         self._sleep = rest
         self._activities = acts
         self._habits = habs
         self._workouts = works
+        self._date = date.today()
+        self._time = datetime.now()
 
     # sleep attribute get, set, delete
     @property
@@ -69,17 +73,3 @@ class Day:
     @workouts.deleter
     def workouts(self):
         del self._workouts
-
-        
-class Entry:
-    """
-    Day is a base parent class
-    Attributes:
-        Day log
-        datetime date
-        datetime time
-    """
-    def __init__(self, log ):
-        self._log = log
-        self._date = date.today()
-        self._time = datetime.now()
