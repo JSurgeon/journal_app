@@ -1,7 +1,8 @@
 # file containing classes Day() and Entry() 
 
 from activity import *
-from datetime import date
+from datetime import date, datetime
+
 class Day:
     """
     Day is a base parent class
@@ -70,3 +71,15 @@ class Day:
         del self._workouts
 
         
+class Entry:
+    """
+    Day is a base parent class
+    Attributes:
+        Day log
+        datetime date
+        datetime time
+    """
+    def __init__(self, log ):
+        self._log = log
+        self._date = date.today()
+        self._time = datetime.now()
