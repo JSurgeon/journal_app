@@ -1,13 +1,17 @@
-from activity import Habit
+from activity import Activity, Habit
 
-smoking = Habit()
+hike = Activity("hike", "1pm", "3pm", "good", "forrest park")
 
-print(f"{smoking.occured}")
+print(f"Hike: {hike.name} {hike.startime}, {hike.endtime}, {hike.quality}, {hike.location}")
 
-smoking.occured = True
+hike.name = "basketball"
+hike.startime = "10pm"
+hike.endtime = "11pm"
+hike.quality = "bad"
+hike.location = "somewhere else"
 
-print(f"{smoking.duration}")
+print(f"Hike: {hike.name} {hike.startime}, {hike.endtime}, {hike.quality}, {hike.location}")
 
-smoking.duration = 1
+hike = Habit("hike", "1pm", "3pm", "good", "forrest park", 5)
 
-print(f"{smoking.duration}")
+print(f"Hike: {hike.name} {hike.startime}, {hike.endtime}, {hike.quality}, {hike.location}, {hike.amount}")
