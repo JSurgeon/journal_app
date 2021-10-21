@@ -18,7 +18,7 @@ class Activity:
 
 #-------------------------#
 
-class Habit(Activity):
+class Practice(Activity):
     def __init__(self):
         Activity.__init__(self)
         self._occured = False
@@ -56,4 +56,3 @@ class Daily(Activity):
     def quality(self):
         del self._quality
 
-    
