@@ -14,6 +14,26 @@ def quality_options():
         print(f'{i+1}) {value}')
     return QUALITIES[ int( input() ) -1 ]   
 
+def habit_menu():
+    """
+    Returns a list of Habit objects or an empty list
+    """
+    habit_list = list()
+    for element in [("Tobacco", "cigs"), ("Alcohol", "drinks")]:
+        response = input(f"\nDid you use {element[0]} today? (Y/N)\n").capitalize()
+
+        if (response == "Y" or response == "Yes"):
+            occured = int( input(f"\nWhat time did the {element[0]} use start?\n") )   # NEED TO MAKE  TIME OBJECT
+            use_location = input(f"\nWhere did the {element[0]} use occur?\n").capitalize()
+            amount = int( input(f"\nAmount of {element[1]}: ") )
+            print(f"\nHow do you feel about the {element[0]} use?")
+            use_quality = quality_options()
+
+            habit_list.append(Habit(f"{element[0]} Use", occured, use_quality, use_location, amount))
+
+    return habit_list
+
+    
 def exercise_menu():
     """
     Returns a list of Exercise objects or an empty list
@@ -50,9 +70,6 @@ def create_exercise():
     exercise_quality = quality_options()
 
     return Exercise(exercise_name, exercise_start, exercise_end, exercise_quality, exercise_location, exercise_intensity)
-
-
-            
 
 class Entry:
     """
@@ -93,17 +110,7 @@ class Entry:
         
         
         # Habit data
-        for element in [("Tobacco", "cigs"), ("Alcohol", "drinks")]:
-            response = input(f"\nDid you use {element[0]} today? (Y/N)").capitalize()
-
-            if (response == "Y" or response == "Yes"):
-                occured = int( input(f"\nWhat time did the {element[0]} use start?") )   # NEED TO MAKE  TIME OBJECT
-                use_location = input(f"\nWhere did the {element[0]} use occur?").capitalize()
-                amount = int( input(f"\n{element[0]} ({element[1]}): ") )
-                print(f"\nHow do you feel about the {element[0]} use?")
-                use_quality = quality_options()
-
-                self._habits.append(Habit(f"{element[0]} Use", occured, use_quality, use_location, amount))
+        self._habits = habit_menu()
     
         # Exercise Data
         self._exercises = exercise_menu()
@@ -112,9 +119,7 @@ class Entry:
 
 
 
-
         
-        # self._activities = acts
 
 
     ####

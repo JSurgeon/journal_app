@@ -1,7 +1,7 @@
 from entry import *
 
-# Exercise menu/creation debug #
-exercise_list = exercise_menu()
+# habit menu/creation debug #
+# habits = habit_menu()
 
-for i, value in enumerate(exercise_list):
-    print(vars(value))
+# for i, value in enumerate(habits):
+#     print(vars(value))
