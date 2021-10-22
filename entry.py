@@ -3,18 +3,40 @@
 from activity import *
 from datetime import date, datetime
 
-qualities = ["Terrible", "Bad", "Okay", "Good", "Great"]
-
-
-def quality_menu():
+QUALITIES = ["Terrible", "Bad", "Okay", "Good", "Great"]
+exercises = ["Basketball", "Run", "Walk", "Yoga", "Other"] # NEED TO MAKE DYNAMIC VIA ALL PAST ENTRIES; 
+                                                            #REORDER SO OTHER IS AT THE END ALWAYS
+def quality_options():
     """
     Returns string 
     """
-    for i, value in enumerate(qualities):
+    for i, value in enumerate(QUALITIES):
         print(f'{i+1}) {value}')
-    return qualities[ int( input() ) -1 ]    
+    return QUALITIES[ int( input() ) -1 ]    
+    
+def create_exercise():
+    """
+    Returns Activity
+    """
+    print("Which exercise did you perform?")
+    for i, value in enumerate(exercises):
+        print(f'{i+1}) {value}')
+    exercise_name = exercises[ int( input() ) -1 ]
+    # if "Other", add prompt user to input new exercise name
+    if exercise_name == "Other":
+        exercise_name = input("\nAwesome, you did something new! What exercise did you do?\n")
+    
+    exercise_start = input(f"What time of day did {exercise_name} begin?")
+    exercise_end = input(f"What time of day did {exercise_name} end?")
     
 
+        
+        
+        
+        
+        
+    return response
+            
 
 class Entry:
     """
@@ -35,7 +57,7 @@ class Entry:
 
         self._habits = list()
         self._activities = list()
-        self._workouts = list()
+        self._exercise = list()
 
         print("Creating new journal entry\n- - - - - - - - - - - - - -")
         
@@ -47,28 +69,32 @@ class Entry:
         sleep_interuptions = int( input("\nHow many times were you woken up?\n") )
         
         print("\nHow well did you sleep?")
-        sleep_quality = quality_menu()
+        sleep_quality = quality_options()
 
         end_time = input("\nWhat time did you wake up this morning?\n") # NEED TO MAKE TIME OBJECT
 
         self._sleep = Rest("Sleep", start_time, end_time, sleep_quality, sleep_location, sleep_interuptions)
         
         
-        # Tobacco use data
+        # Habit data
         for element in [("Tobacco", "cigs"), ("Alcohol", "drinks")]:
-            response = input(f"Did you use {element} today? (Y/N)").capitalize()
+            response = input(f"\nDid you use {element[0]} today? (Y/N)").capitalize()
 
             if (response == "Y" or response == "Yes"):
-                occured = int( input("What time did the {element[0]} use start?") )   # NEED TO MAKE  TIME OBJECT
-                use_location = input("Where did the {element[0]} use occur?").capitalize()
-                amount = int( input("{element[0]} ({element[1]}): ") )
-                print("\nHow do you feel about the {element[0]} use?")
-                use_quality = quality_menu()
+                occured = int( input(f"\nWhat time did the {element[0]} use start?") )   # NEED TO MAKE  TIME OBJECT
+                use_location = input(f"\nWhere did the {element[0]} use occur?").capitalize()
+                amount = int( input(f"\n{element[0]} ({element[1]}): ") )
+                print(f"\nHow do you feel about the {element[0]} use?")
+                use_quality = quality_options()
 
                 self._habits.append(Habit(f"{element[0]} Use", occured, use_quality, use_location, amount))
-        
-        
-            
+    
+
+        # Exercise Data
+        response = input("Did you exercise today? (Y/N)\n").capitalize()
+        if (response == "Yes" or response == "Y"):
+            exercise_name = exercise_menu()
+
 
 
 
