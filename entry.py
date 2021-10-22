@@ -39,38 +39,44 @@ class Entry:
     # sleep attribute get, set, delete
     @property
     def sleep(self):
+        """
+        Returns a dictionary object
+        Keys:
+            name (string)
+            startime 
+            endtime
+            quality (string)
+            location (string)
+            interuptions (int)        
+        """
         return self._sleep
     
     @sleep.setter
+    
     def sleep(self, rest):
+        """
+        Expects a Rest object
+        """
+        # NEED TO implement object type check
+
         self._sleep = rest
     
     @sleep.deleter
     def sleep(self):
         del self._sleep
 
-    # activities attribute get, set, delete
-    @property
-    def activities(self):
-        acts = []
-        for activity in self._activities:
-            acts.append(vars(activity))
-        
-        return acts
-    
-    @activities.setter
-    def activities(self, acts):
-        self._activities = acts
-    
-    @activities.deleter
-    def activities(self):
-        del self._activities
-    
     # habits attribute get, set, delete
     @property
     def habits(self):
         """
         Returns a list of dictionary items
+        Key:
+            name (string)
+            startime 
+            endtime
+            quality (string)
+            location (string)
+            amount (int)       
         """
         habs = []
         for element in self._habits:
@@ -87,6 +93,7 @@ class Entry:
         """
         Expects a list of Habit objects
         """
+        # NEED TO implement object type check
         self._habits = habs
     
     @habits.deleter
@@ -96,10 +103,31 @@ class Entry:
     # workouts attribute get, set, delete
     @property
     def workouts(self):
-        return self._workouts
-    
+        """
+        Returns a list of dictionary items
+        Key:
+            name (string)
+            startime 
+            endtime
+            quality (string)
+            location (string)
+            intensity (int)
+        """
+        workouts = []
+        for element in self._exercises:
+            dict = {}
+            for key, value in vars(element).items():
+                dict[key.replace("_", "", 1)] = value
+            workouts.append(dict)
+            
+        return workouts
+
     @workouts.setter
     def workouts(self, works):
+        """
+        Expects a list of Exercise objects
+        """
+        # NEED TO implement object type check
         self._workouts = works
     
     @workouts.deleter
