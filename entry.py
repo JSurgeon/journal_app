@@ -12,30 +12,46 @@ def quality_options():
     """
     for i, value in enumerate(QUALITIES):
         print(f'{i+1}) {value}')
-    return QUALITIES[ int( input() ) -1 ]    
+    return QUALITIES[ int( input() ) -1 ]   
+
+def exercise_menu():
+    """
+    Returns a list of Exercise objects or an empty list
+    """
+    exercises = list()
+    
+    response = input("Did you exercise today? (Y/N)\n").capitalize()
+    
+    while (response == "Yes" or response == "Y"):
+        exercises.append(create_exercise())
+        response = input("\nAdd another exercise for today? (Y/N)\n").capitalize()
+    
+    return exercises
     
 def create_exercise():
     """
-    Returns Activity
+    Returns an Exercise objects
     """
     print("Which exercise did you perform?")
     for i, value in enumerate(exercises):
         print(f'{i+1}) {value}')
     exercise_name = exercises[ int( input() ) -1 ]
-    # if "Other", add prompt user to input new exercise name
+    
+    # if "Other", prompt user to input new exercise name
     if exercise_name == "Other":
-        exercise_name = input("\nAwesome, you did something new! What exercise did you do?\n")
+        exercise_name = input("\nAwesome, you did something new! What exercise did you do?\n").capitalize()
     
-    exercise_start = input(f"What time of day did {exercise_name} begin?")
-    exercise_end = input(f"What time of day did {exercise_name} end?")
+    exercise_location = input(f"\nWhere did {exercise_name} occur?\n").capitalize()
+    exercise_start = input(f"\nWhat time of day did {exercise_name} begin?\n")  # TIME!
+    exercise_end = input(f"\nWhat time of day did {exercise_name} end?\n")  # TIME!
+    exercise_intensity = input(f"\nOn a scale from 1-5, 5 being the greatest, how intense was {exercise_name}?\n")
     
+    print(f"\nHow do you feel about today's {exercise_name}?")
+    exercise_quality = quality_options()
 
-        
-        
-        
-        
-        
-    return response
+    return Exercise(exercise_name, exercise_start, exercise_end, exercise_quality, exercise_location, exercise_intensity)
+
+
             
 
 class Entry:
@@ -57,7 +73,7 @@ class Entry:
 
         self._habits = list()
         self._activities = list()
-        self._exercise = list()
+        self._exercises = list()
 
         print("Creating new journal entry\n- - - - - - - - - - - - - -")
         
@@ -89,19 +105,16 @@ class Entry:
 
                 self._habits.append(Habit(f"{element[0]} Use", occured, use_quality, use_location, amount))
     
-
         # Exercise Data
-        response = input("Did you exercise today? (Y/N)\n").capitalize()
-        if (response == "Yes" or response == "Y"):
-            exercise_name = exercise_menu()
+        self._exercises = exercise_menu()
+        
+
 
 
 
 
         
         # self._activities = acts
-        # self._habits = habs
-        # self._workouts = works
 
 
     ####
