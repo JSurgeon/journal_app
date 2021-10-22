@@ -1,6 +1,6 @@
 from entry import *
 
 # sleep menu/creation debug #
-sleeps = sleep_menu()
+entry = Entry()
 
-print(vars(sleeps))
+print(entry.habits)
