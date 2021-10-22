@@ -75,7 +75,8 @@ class Activity:
 #-------------------------#
 
 class Habit(Activity):
-    def __init__(self, name, start, end, quality, location, amount):
+    def __init__(self, name, start, quality, location, amount):
+        end = None
         Activity.__init__(self, name, start, end, quality, location)
         self._amount = amount
 
@@ -98,7 +99,7 @@ class Habit(Activity):
 
 class Rest(Activity):
     def __init__(self, name, start, end, quality, location, interuptions):
-        Activity.__init__(self, name, start, end, quality, location)
+        Activity.__init__(self, name = , start, end, quality, location)
         self._interuptions = interuptions
 
     # interuptions attribute get, set, delete
