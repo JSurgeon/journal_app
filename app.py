@@ -1,7 +1,6 @@
 from entry import *
 
-# habit menu/creation debug #
-# habits = habit_menu()
+# sleep menu/creation debug #
+sleeps = sleep_menu()
 
-# for i, value in enumerate(habits):
-#     print(vars(value))
+print(vars(sleeps))

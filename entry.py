@@ -13,6 +13,25 @@ def quality_options():
     for i, value in enumerate(QUALITIES):
         print(f'{i+1}) {value}')
     return QUALITIES[ int( input() ) -1 ]   
+    
+
+def sleep_menu():
+    """
+    Returns a Rest object
+    """
+    print("Collecting data about last night's sleep\n- - - - - - - - - - - - - - - - - - - -")
+    sleep_location = input("\nWhere did you sleep?\n").capitalize()
+    start_time = input("\nAbout when did you fall asleep last night?\n")  # NEED TO MAKE TIME OBJECT
+
+    sleep_interuptions = int( input("\nHow many times were you woken up?\n") )
+    
+    print("\nHow well did you sleep?")
+    sleep_quality = quality_options()
+
+    end_time = input("\nWhat time did you wake up this morning?\n") # NEED TO MAKE TIME OBJECT
+
+    return Rest("Sleep", start_time, end_time, sleep_quality, sleep_location, sleep_interuptions)
+
 
 def habit_menu():
     """
@@ -33,7 +52,7 @@ def habit_menu():
 
     return habit_list
 
-    
+
 def exercise_menu():
     """
     Returns a list of Exercise objects or an empty list
@@ -71,6 +90,8 @@ def create_exercise():
 
     return Exercise(exercise_name, exercise_start, exercise_end, exercise_quality, exercise_location, exercise_intensity)
 
+
+
 class Entry:
     """
     Entry is a base parent class
@@ -94,22 +115,10 @@ class Entry:
 
         print("Creating new journal entry\n- - - - - - - - - - - - - -")
         
-        # Sleep Data #
-        print("Collecting data about last night's sleep\n- - - - - - - - - - - - - - - - - - - -")
-        sleep_location = input("\nWhere did you sleep?\n").capitalize()
-        start_time = input("\nAbout when did you fall asleep last night?\n")  # NEED TO MAKE TIME OBJECT
-
-        sleep_interuptions = int( input("\nHow many times were you woken up?\n") )
+        # Sleep Data
+        self._sleep = sleep_menu()
         
-        print("\nHow well did you sleep?")
-        sleep_quality = quality_options()
-
-        end_time = input("\nWhat time did you wake up this morning?\n") # NEED TO MAKE TIME OBJECT
-
-        self._sleep = Rest("Sleep", start_time, end_time, sleep_quality, sleep_location, sleep_interuptions)
-        
-        
-        # Habit data
+        # Habit Data
         self._habits = habit_menu()
     
         # Exercise Data
