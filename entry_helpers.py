@@ -3,7 +3,7 @@ from datetime import date, datetime
 
 QUALITIES = ["Terrible", "Bad", "Okay", "Good", "Great"]
 exercises = ["Basketball", "Run", "Walk", "Yoga", "Other"] # NEED TO MAKE DYNAMIC VIA ALL PAST ENTRIES; 
-                                                            #REORDER SO OTHER IS AT THE END ALWAYS
+                                                            #REORDER SO 'OTHER' IS AT THE END ALWAYS
 def quality_options():
     """
     Returns string 

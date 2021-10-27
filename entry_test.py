@@ -4,4 +4,4 @@ entry = Entry()
 
 print(entry.habits)
 print(entry.exercises)
-print(entry.sleep)
+print(entry.sleep['name'])

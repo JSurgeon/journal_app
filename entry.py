@@ -60,7 +60,6 @@ class Entry:
         return dict
     
     @sleep.setter
-    
     def sleep(self, rest):
         """
         Expects a Rest object
@@ -142,7 +141,7 @@ class Entry:
     def exercises(self):
         del self._exercises
 
-
+    @classmethod
     def quality_options(self):
         """
         Returns string 
@@ -151,7 +150,7 @@ class Entry:
             print(f'{i+1}) {value}')
         return self.QUALITIES[ int( input() ) -1 ]   
 
-
+    @classmethod
     def sleep_menu(self):
         """
         Returns a Rest object
@@ -169,12 +168,12 @@ class Entry:
 
         return Rest("Sleep", start_time, end_time, sleep_quality, sleep_location, sleep_interuptions)
 
-
+    @classmethod
     def habit_menu(self):
         """
         Returns a list of Habit objects or an empty list
         """
-        print("Collecting data about today's Tobacco and Alcohol use\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+        print("\nCollecting data about today's Tobacco and Alcohol use\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
         habit_list = list()
         for element in [("Tobacco", "cigs"), ("Alcohol", "drinks")]:
             response = input(f"\nDid you use {element[0]} today? (Y/N)\n").capitalize()
@@ -190,7 +189,7 @@ class Entry:
 
         return habit_list
 
-
+    @classmethod
     def exercise_menu(self):
         """
         Returns a list of Exercise objects or an empty list
@@ -206,6 +205,7 @@ class Entry:
         
         return exercises
         
+    @classmethod
     def create_exercise(self):
         """
         Returns an Exercise objects
