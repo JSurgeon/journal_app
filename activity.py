@@ -1,13 +1,21 @@
 # File containing activity class and it's children
-
+from copy import copy, deepcopy
 class Activity:
     def __init__(self, name, start, end, quality, location):
         self._name = name
-        self._startime = start
-        self._endtime = end
+        self._startime = int(start)
+        self._endtime = int(end)
         self._quality = quality
         self._location = location
 
+    def __deepcopy__(self, memo):
+        return Activity(\
+            deepcopy(self._name, memo),\
+            deepcopy(self._startime, memo),\
+            deepcopy(self._endtime, memo),\
+            deepcopy(self._quality, memo),\
+            deepcopy(self._location, memo)\
+            )
     # name attribute get, set, delete
     @property
     def name(self):
@@ -15,7 +23,8 @@ class Activity:
     
     @name.setter
     def name(self, n):
-        self._name = n
+        # NEED TO implement object type check and deep copy
+        self._name = copy(n)
     
     @name.deleter
     def name(self):
@@ -28,7 +37,7 @@ class Activity:
     
     @startime.setter
     def startime(self, time):
-        self._startime = time
+        self._startime = copy(time)
     
     @startime.deleter
     def startime(self):
@@ -41,7 +50,7 @@ class Activity:
     
     @endtime.setter
     def endtime(self, time):
-        self._endtime = time
+        self._endtime = copy(time)
     
     @endtime.deleter
     def endtime(self):
@@ -54,7 +63,7 @@ class Activity:
     
     @quality.setter
     def quality(self, qual):
-        self._quality = qual
+        self._quality = copy(qual)
     
     @quality.deleter
     def quality(self):
@@ -67,7 +76,7 @@ class Activity:
     
     @location.setter
     def location(self, loc):
-        self._location = loc
+        self._location = copy(loc)
     
     @location.deleter
     def location(self):
@@ -87,13 +96,13 @@ class Habit(Activity):
     
     @amount.setter
     def amount(self, amt):
-        self._amount = amt
+        self._amount = copy(amt)
     
     @amount.deleter
     def amount(self):
         del self._amount
 
-
+    
 
 #-------------------------#
 
@@ -109,7 +118,7 @@ class Rest(Activity):
 
     @interuptions.setter
     def interuptions(self, amount):
-        self._interuptions = amount
+        self._interuptions = copy(amount)
 
     @interuptions.deleter
     def interuptions(self):
@@ -129,7 +138,7 @@ class Exercise(Activity):
 
     @intensity.setter
     def intensity(self, intens):
-        self._intensity = intens
+        self._intensity = copy(intens)
 
     @intensity.deleter
     def intensity(self):

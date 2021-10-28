@@ -64,7 +64,7 @@ class Entry:
         """
         Expects a Rest object
         """
-        # NEED TO implement object type check
+        # NEED TO implement object type check and deep copy
 
         self._sleep = rest
     
@@ -100,7 +100,7 @@ class Entry:
         """
         Expects a list of Habit objects
         """
-        # NEED TO implement object type check
+        # NEED TO implement object type check and deep copy
         self._habits = habs
     
     @habits.deleter
@@ -130,12 +130,13 @@ class Entry:
         return exercises
 
     @exercises.setter
-    def exercises(self, works):
+    def exercises(self, exer):
         """
         Expects a list of Exercise objects
         """
-        # NEED TO implement object type check
-        self._exercises = works
+        # NEED TO implement object type check and deep copy
+        self._exercises = exer
+        
     
     @exercises.deleter
     def exercises(self):

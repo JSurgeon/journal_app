@@ -44,6 +44,7 @@ class Node:
     @entry.setter
     def entry(self,to_set):
         self._entry = to_set
+        # NEED TO implement object type check and deep copy
 
     @entry.deleter
     def entry(self):
