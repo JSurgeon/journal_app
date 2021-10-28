@@ -1,6 +1,6 @@
 # file containing classes Day() and Entry() 
 
-from activity import *
+from activity import Habit, Rest, Exercise
 from datetime import date, datetime
 
 

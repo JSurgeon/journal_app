@@ -189,3 +189,6 @@ new_sleep.interuptions = new_values["interuptions"]
 
 test_rest_values(sleep, expected_dictionary, "Sleep() copy case #2")
 test_rest_values(new_sleep, new_values, "New Sleep() copy case #2")
+
+
+print(new_sleep)
