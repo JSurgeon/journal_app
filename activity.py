@@ -16,6 +16,7 @@ class Activity:
             deepcopy(self._quality, memo),\
             deepcopy(self._location, memo)\
             )
+
     # name attribute get, set, delete
     @property
     def name(self):
@@ -85,10 +86,18 @@ class Activity:
 
 class Habit(Activity):
     def __init__(self, name, start, quality, location, amount):
-        end = None
-        Activity.__init__(self, name, start, end, quality, location)
+        end = 0
+        super().__init__(name,start,end,quality,location)
         self._amount = amount
 
+    def __deepcopy__(self, memo):
+        return Habit(\
+            deepcopy(self._name, memo),\
+            deepcopy(self._startime, memo),\
+            deepcopy(self._quality, memo),\
+            deepcopy(self._location, memo),\
+            deepcopy(self._amount)\
+            )
     # amount attribute get, set, delete
     @property
     def amount(self):
@@ -108,9 +117,18 @@ class Habit(Activity):
 
 class Rest(Activity):
     def __init__(self, name, start, end, quality, location, interuptions):
-        Activity.__init__(self, name, start, end, quality, location)
+        super().__init__(name, start, end, quality, location)
         self._interuptions = interuptions
-
+    
+    def __deepcopy__(self, memo):
+        return Rest(\
+            deepcopy(self._name, memo),\
+            deepcopy(self._startime, memo),\
+            deepcopy(self._endtime, memo),\
+            deepcopy(self._quality, memo),\
+            deepcopy(self._location, memo),\
+            deepcopy(self._interuptions)\
+            )
     # interuptions attribute get, set, delete
     @property
     def interuptions(self):
@@ -128,8 +146,18 @@ class Rest(Activity):
 
 class Exercise(Activity):
     def __init__(self, name, start, end, quality, location, intensity):
-        Activity.__init__(self, name, start, end, quality, location)
+        super().__init__(name, start, end, quality, location)
         self._intensity = intensity
+
+    def __deepcopy__(self, memo):
+        return Exercise(\
+            deepcopy(self._name, memo),\
+            deepcopy(self._startime, memo),\
+            deepcopy(self._endtime, memo),\
+            deepcopy(self._quality, memo),\
+            deepcopy(self._location, memo),\
+            deepcopy(self.intensity)\
+            )
 
     # intensity attribute get, set, delete
     @property
