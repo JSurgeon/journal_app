@@ -17,6 +17,9 @@ class Activity:
             deepcopy(self._location, memo)\
             )
 
+    def __str__(self):
+        return f"{type(self)}(name = {self._name}, startime = {self._startime}, endtime = {self._endtime}, quality = {self._quality}, location = {self._location})"
+            
     # name attribute get, set, delete
     @property
     def name(self):
@@ -98,6 +101,11 @@ class Habit(Activity):
             deepcopy(self._location, memo),\
             deepcopy(self._amount)\
             )
+
+    def __str__(self):
+        return super().__str__() + f", amount = {self._amount}"
+
+
     # amount attribute get, set, delete
     @property
     def amount(self):
@@ -129,6 +137,10 @@ class Rest(Activity):
             deepcopy(self._location, memo),\
             deepcopy(self._interuptions)\
             )
+    
+    def __str__(self):
+        return super().__str__() + f", interuptions = {self._interuptions}"
+
     # interuptions attribute get, set, delete
     @property
     def interuptions(self):
@@ -158,6 +170,9 @@ class Exercise(Activity):
             deepcopy(self._location, memo),\
             deepcopy(self.intensity)\
             )
+
+    def __str__(self):
+        return super().__str__() + f", intensity = {self._intensity}"
 
     # intensity attribute get, set, delete
     @property

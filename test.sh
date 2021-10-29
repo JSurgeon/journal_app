@@ -1,4 +1,4 @@
-python node_test.py << EOF
+python entry_test.py << EOF
 home
 12
 2

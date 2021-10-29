@@ -1,6 +1,7 @@
 # file containing classes Day() and Entry() 
 
-from activity import Habit, Rest, Exercise
+from copy import deepcopy
+from activity import Habit, Rest, Exercise, Activity
 from datetime import date, datetime
 
 
@@ -37,6 +38,29 @@ class Entry:
         # Exercise Data
         self._exercises = self.exercise_menu()
 
+    def __deepcopy__(self, memo):
+        new_entry = Entry()
+        new_entry._sleep = self._sleep
+        
+    def __str__(self):
+        
+        string = f"{type(self)}(\
+            \n\tDate: {self._date}\
+            \n\tTime: {self._time}\n\
+            \n\tSleep Object: {self._sleep}\n\
+            \n\t{len(self._habits)} Habit Object(s):\n"
+
+        for i, element in enumerate(self._habits):
+            string += f"\n\t\t({i+1}) " + str(element)
+
+        string += f"\n\n\t{len(self._exercises)} Exercise Object(s):\n"
+
+        for i, element in enumerate(self._exercises):
+            string += f"\n\t\t({i+1}) " + str(element)
+
+
+        return string
+        
     ##########################
     # Entry class decorators #
     ##########################
@@ -64,9 +88,9 @@ class Entry:
         """
         Expects a Rest object
         """
-        # NEED TO implement object type check and deep copy
+        # NEED TO implement object type check 
 
-        self._sleep = rest
+        self._sleep = deepcopy(rest)
     
     @sleep.deleter
     def sleep(self):
@@ -98,10 +122,12 @@ class Entry:
     @habits.setter
     def habits(self, habs):
         """
-        Expects a list of Habit objects
+        Expects a list
         """
-        # NEED TO implement object type check and deep copy
-        self._habits = habs
+        # NEED TO implement object type check 
+        habit_arry = []
+        for element in habs:
+            habit_arry.append(deepcopy(element))
     
     @habits.deleter
     def habits(self):
@@ -130,13 +156,14 @@ class Entry:
         return exercises
 
     @exercises.setter
-    def exercises(self, exer):
+    def exercises(self, exers):
         """
         Expects a list of Exercise objects
         """
-        # NEED TO implement object type check and deep copy
-        self._exercises = exer
-        
+        # NEED TO implement object type check 
+        exercise_array = []
+        for element in exers:
+            exercise_array.append(deepcopy(element))
     
     @exercises.deleter
     def exercises(self):
