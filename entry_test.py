@@ -11,3 +11,8 @@ print("\n", entry)
 rest_2 = Rest("rest2", 2, 2, "Good", "2", 2)
 
 
+entry._sleep = rest_2
+
+
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+print(entry._sleep)

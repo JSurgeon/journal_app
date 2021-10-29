@@ -103,7 +103,7 @@ class Habit(Activity):
             )
 
     def __str__(self):
-        return super().__str__() + f", amount = {self._amount}"
+        return super().__str__() + f", amount = {self._amount})"
 
 
     # amount attribute get, set, delete
@@ -139,7 +139,7 @@ class Rest(Activity):
             )
     
     def __str__(self):
-        return super().__str__() + f", interuptions = {self._interuptions}"
+        return super().__str__() + f", interuptions = {self._interuptions})"
 
     # interuptions attribute get, set, delete
     @property
@@ -172,7 +172,7 @@ class Exercise(Activity):
             )
 
     def __str__(self):
-        return super().__str__() + f", intensity = {self._intensity}"
+        return super().__str__() + f", intensity = {self._intensity})"
 
     # intensity attribute get, set, delete
     @property

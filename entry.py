@@ -8,7 +8,10 @@ from datetime import date, datetime
 class Entry:
     """
     Entry is a base parent class
-    Attributes:
+    Class Attributes:
+        QUALITIES (list of strings)
+        exercise_list (list of strings)
+    Instance Attributes:
         _date (date)
         _time (datetime)
         _sleep (Rest)
@@ -60,7 +63,7 @@ class Entry:
 
 
         return string
-        
+
     ##########################
     # Entry class decorators #
     ##########################
