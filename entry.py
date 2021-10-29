@@ -8,14 +8,23 @@ from datetime import date, datetime
 class Entry:
     """
     Entry is a base parent class
+
     Class Attributes:
+
         QUALITIES (list of strings)
+
         exercise_list (list of strings)
+
     Instance Attributes:
+
         _date (date)
+
         _time (datetime)
+
         _sleep (Rest)
+
         _habits (Habit[])
+
         _exercises (Exercise[])
 
     """
@@ -41,9 +50,9 @@ class Entry:
         # Exercise Data
         self._exercises = self.exercise_menu()
 
-    def __deepcopy__(self, memo):
-        new_entry = Entry()
-        new_entry._sleep = self._sleep
+    # def __deepcopy__(self, memo):
+    #     new_entry = Entry()
+    #     new_entry._sleep = self._sleep
         
     def __str__(self):
         
