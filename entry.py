@@ -1,13 +1,36 @@
-# file containing classes Day() and Entry() 
+# file containing class Entry() 
 
 from copy import deepcopy
 from activity import Habit, Rest, Exercise, Activity
 from datetime import date, datetime
 
-
-class Entry:
+class Node:
     """
-    Entry is a base parent class
+    Node is a base parent class
+
+    Instance Attributes:  
+
+        _next (Node)
+    """
+
+    def __init__(self):
+        self._next = None
+
+    @property
+    def next(self):
+        return self._next
+
+    @next.setter
+    def next(self, to_set):
+        self._next = to_set
+        
+    @next.deleter
+    def next(self):
+        del self._next
+
+class Entry(Node):
+    """
+    Entry is a child of Node
 
     Class Attributes:
 
@@ -33,6 +56,10 @@ class Entry:
                                                                 #REORDER SO 'OTHER' IS AT THE END ALWAYS
 
     def __init__(self):
+
+        # initialize parent Node
+        super().__init__()
+
         # initialize necessary instance attributes
         self._date = date.today()
         self._time = datetime.now()
@@ -69,7 +96,6 @@ class Entry:
 
         for i, element in enumerate(self._exercises):
             string += f"\n\t\t({i+1}) " + str(element)
-
 
         return string
 
@@ -113,7 +139,7 @@ class Entry:
     def habits(self):
         """
         Returns a list of dictionary items
-        Key:
+        Keys:
             name (string)
             startime 
             endtime
@@ -150,7 +176,7 @@ class Entry:
     def exercises(self):
         """
         Returns a list of dictionary items
-        Key:
+        Keys:
             name (string)
             startime 
             endtime

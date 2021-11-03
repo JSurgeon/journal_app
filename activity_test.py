@@ -83,7 +83,9 @@ new_activity.location = new_values["location"]
 test_activity_values(obj_activity, expected_dictionary, "Activity copy test case #2")
 test_activity_values(new_activity, new_values, "New Object copy test case #2")
 
-# test habit
+########
+# TEST HABITS
+########
 def test_habit_values(habit_obj, expected_values, test_name):
     test_activity_values(habit_obj, expected_values, test_name)
     print("\nhabit.amount get Test Passed") if habit_obj.amount == expected_values["amount"] \

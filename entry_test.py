@@ -1,18 +1,12 @@
 from entry import *
 
-entry = Entry()
-# print("~~~~~~~~~~~~\nPrinting Results\n~~~~~~~~~~~~")
-# print("\n", entry.sleep,"\n")
-# print(entry.habits,"\n")
-# print(entry.exercises,"\n")
+entry_1 = Entry()
 
-print("\n", entry)
+entry_2 = Entry()
 
-rest_2 = Rest("rest2", 2, 2, "Good", "2", 2)
+entry_1.next = entry_2
 
 
-entry._sleep = rest_2
+print("~~~~~~~~~~~~~~~\nPRINTING ENTRY_1.NEXT\n~~~~~~~~~~~~~~~~~~~~~~")
+print(entry_1.next)
 
-
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-print(entry._sleep)
