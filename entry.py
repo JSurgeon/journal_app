@@ -45,12 +45,6 @@ class Entry(Node):
     """
     Entry is a child of Node
 
-    Class Attributes:
-
-        QUALITIES (list of strings)
-
-        exercise_list (list of strings)
-
     Instance Attributes:
 
         _date (date)
@@ -64,36 +58,36 @@ class Entry(Node):
         _exercises (Exercise[])
 
     """
-    QUALITIES = ["Terrible", "Bad", "Okay", "Good", "Great"]
-    exercise_list = ["Basketball", "Run", "Walk", "Yoga", "Other"] # NEED TO MAKE DYNAMIC VIA ALL PAST ENTRIES; 
-                                                                #REORDER SO 'OTHER' IS AT THE END ALWAYS
 
-    def __init__(self):
+    def __init__(self, *args):
 
         # initialize parent Node
         super().__init__()
 
-        # initialize necessary instance attributes
-        self._date = date.today()
-        self._time = datetime.now()
+        # initialize instance attributes to default values
+        self._date = None
+        self._time = None
+        self._sleep = None
+        self._habits = []
+        self._exercises = []
 
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"\
-              "~~ Creating new journal entry ~~\n"\
-              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        
-        # Sleep Data
-        self._sleep = self.sleep_menu()
-        
-        # Habit Data
-        self._habits = self.habit_menu()
-    
-        # Exercise Data
-        self._exercises = self.exercise_menu()
+        if(len(args) > 0):
+            self._date = args[0]
+            self._time = args[1]
+            self._sleep = args[2]
+            for element in args[3]:
+                self._habits = self._habits = element
+            for element in args[4]:
+                self._exercise = self.exercises = element 
 
-    # def __deepcopy__(self, memo):
-    #     new_entry = Entry()
-    #     new_entry._sleep = self._sleep
-        
+    @classmethod
+    def filled(cls, date, time, rest_obj, habits_lst, exercises_lst):
+        """
+        Returns a filled Entry object
+        """
+        return cls(date, time, rest_obj, habits_lst, exercises_lst)
+
+
     def __str__(self):
         
         string = f"{type(self)}(\
@@ -113,10 +107,33 @@ class Entry(Node):
         return string
 
     ##########################
-    # Entry class decorators #
+    # Entry class properties #
     ##########################
 
     # sleep attribute get, set, delete
+    @property
+    def time(self):
+        return self._time
+    
+    @time.setter
+    def time(self, to_set):
+        self._time = deepcopy(to_set)
+    
+    @time.deleter
+    def time(self):
+        del self._time
+
+    @property
+    def date(self):
+        return self._date
+    
+    @date.setter
+    def date(self, to_set):
+        self._date = deepcopy(to_set)
+    
+    @date.deleter
+    def date(self):
+        del self._date
     @property
     def sleep(self):
         """
@@ -129,10 +146,15 @@ class Entry(Node):
             location (string)
             interuptions (int)        
         """
-        dict = {}
-        for key, value in vars(self._sleep).items():
-                dict[key.replace("_", "", 1)] = value
-        return dict
+        if self._sleep == None:
+            return None
+        
+        else:
+            dict = {}
+            for key, value in vars(self._sleep).items():
+                    dict[key.replace("_", "", 1)] = value
+            return dict
+
     
     @sleep.setter
     def sleep(self, rest):
@@ -140,7 +162,6 @@ class Entry(Node):
         Expects a Rest object
         """
         # NEED TO implement object type check 
-
         self._sleep = deepcopy(rest)
     
     @sleep.deleter
@@ -160,25 +181,27 @@ class Entry(Node):
             location (string)
             amount (int)       
         """
-        habs = []
-        for element in self._habits:
-            dict = {}
-            for key, value in vars(element).items():
-                dict[key.replace("_", "", 1)] = value
-            habs.append(dict)
-            
-        return habs
+        if self._habits == None:
+            return None
+        
+        else:
+            habs = []
+            for element in self._habits:
+                dict = {}
+                for key, value in vars(element).items():
+                    dict[key.replace("_", "", 1)] = value
+                habs.append(dict)
+                
+            return habs
 
 
     @habits.setter
-    def habits(self, habs):
+    def habits(self, habit):
         """
-        Expects a list
+        Expects a Habit object, append it to habits list
         """
         # NEED TO implement object type check 
-        habit_arry = []
-        for element in habs:
-            habit_arry.append(deepcopy(element))
+        self._habits.append(habit)
     
     @habits.deleter
     def habits(self):
@@ -197,113 +220,32 @@ class Entry(Node):
             location (string)
             intensity (int)
         """
-        exercises = []
-        for element in self._exercises:
-            dict = {}
-            for key, value in vars(element).items():
-                dict[key.replace("_", "", 1)] = value
-            exercises.append(dict)
-            
-        return exercises
+
+        if self._exercises == None:
+            return None
+
+        else:
+            exercises = []
+            for element in self._exercises:
+                dict = {}
+                for key, value in vars(element).items():
+                    dict[key.replace("_", "", 1)] = value
+                exercises.append(dict)
+                
+            return exercises
+
 
     @exercises.setter
-    def exercises(self, exers):
+    def exercises(self, exercise_obj):
         """
-        Expects a list of Exercise objects
+        Expects an Exercise object, appends it to exercise list
         """
+        print("SETTER CALLED")
         # NEED TO implement object type check 
-        exercise_array = []
-        for element in exers:
-            exercise_array.append(deepcopy(element))
+        self._exercises.append(exercise_obj)
+
     
     @exercises.deleter
     def exercises(self):
         del self._exercises
 
-    @classmethod
-    def quality_options(self):
-        """
-        Returns string 
-        """
-        for i, value in enumerate(self.QUALITIES):
-            print(f'{i+1}) {value}')
-        return self.QUALITIES[ int( input() ) -1 ]   
-
-    @classmethod
-    def sleep_menu(self):
-        """
-        Returns a Rest object
-        """
-        print("\nCollecting data about last night's sleep\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-        sleep_location = input("\nWhere did you sleep?\n").capitalize()
-        start_time = input("\nAbout when did you fall asleep last night?\n")  # NEED TO MAKE TIME OBJECT
-
-        sleep_interuptions = int( input("\nHow many times were you woken up?\n") )
-        
-        print("\nHow well did you sleep?")
-        sleep_quality = self.quality_options()
-
-        end_time = input("\nWhat time did you wake up this morning?\n") # NEED TO MAKE TIME OBJECT
-
-        return Rest("Sleep", start_time, end_time, sleep_quality, sleep_location, sleep_interuptions)
-
-    @classmethod
-    def habit_menu(self):
-        """
-        Returns a list of Habit objects or an empty list
-        """
-        print("\nCollecting data about today's Tobacco and Alcohol use\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-        habit_list = list()
-        for element in [("Tobacco", "cigs"), ("Alcohol", "drinks")]:
-            response = input(f"\nDid you use {element[0]} today? (Y/N)\n").capitalize()
-
-            if (response == "Y" or response == "Yes"):
-                occured = int( input(f"\nWhat time did the {element[0]} use start?\n") )   # NEED TO MAKE  TIME OBJECT
-                use_location = input(f"\nWhere did the {element[0]} use occur?\n").capitalize()
-                amount = int( input(f"\nAmount of {element[1]}: ") )
-                print(f"\nHow do you feel about the {element[0]} use?")
-                use_quality = self.quality_options()
-
-                habit_list.append(Habit(f"{element[0]} Use", occured, use_quality, use_location, amount))
-
-        return habit_list
-
-    @classmethod
-    def exercise_menu(self):
-        """
-        Returns a list of Exercise objects or an empty list
-        """
-        print("Collecting data about today's Exercise\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-        exercises = list()
-        
-        response = input("Did you exercise today? (Y/N)\n").capitalize()
-        
-        while (response == "Yes" or response == "Y"):
-            exercises.append(self.create_exercise())
-            response = input("\nAdd another exercise for today? (Y/N)\n").capitalize()
-        
-        return exercises
-        
-    @classmethod
-    def create_exercise(self):
-        """
-        Returns an Exercise objects
-        """
-        print("Which exercise did you perform?")
-        for i, value in enumerate(self.exercise_list):
-            print(f'{i+1}) {value}')
-        exercise_name = self.exercise_list[ int( input() ) -1 ]
-        
-        # if "Other", prompt user to input new exercise name
-        if exercise_name == "Other":
-            exercise_name = input("\nAwesome, you did something new! What exercise did you do?\n").capitalize()
-        
-        exercise_location = input(f"\nWhere did '{exercise_name}' occur?\n").capitalize()
-        exercise_start = input(f"\nWhat time of day did '{exercise_name}' begin?\n")  # TIME!
-        exercise_end = input(f"\nWhat time of day did '{exercise_name}' end?\n")  # TIME!
-        exercise_intensity = input(f"\nOn a scale from 1-5, 5 being the greatest, how intense was '{exercise_name}'?\n")
-        
-        print(f"\nHow do you feel about today's '{exercise_name}'?")
-        exercise_quality = self.quality_options()
-
-        return Exercise(exercise_name, exercise_start, exercise_end, exercise_quality, exercise_location, exercise_intensity)

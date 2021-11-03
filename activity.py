@@ -162,6 +162,7 @@ class Exercise(Activity):
         self._intensity = intensity
 
     def __deepcopy__(self, memo):
+        print("deepcopy called")
         return Exercise(\
             deepcopy(self._name, memo),\
             deepcopy(self._startime, memo),\
