@@ -12,6 +12,7 @@ class Node:
 
         next (Node)
         prev (Node)
+
     """
 
     def __init__(self):
@@ -83,16 +84,12 @@ class Entry(Node):
             self._date = args[0]
             self._time = args[1]
             self._sleep = args[2]
-            # for element in args[3]:
-            #     print("got here")
-            #     self._habits = self.habits = element
             self._habits = deepcopy(args[3])
             self._exercises = deepcopy(args[4])
 
     # alternative "constructor" Entry.filled()
     @classmethod
     def filled(cls, date, time, rest_obj, habits_lst, exercises_lst):
-        print("filled() called")
         """
         Returns a filled Entry object
         """
@@ -154,23 +151,10 @@ class Entry(Node):
     @property
     def sleep(self):
         """
-        Returns a dictionary object
-        Keys:
-            name (string)
-            startime 
-            endtime
-            quality (string)
-            location (string)
-            interuptions (int)        
+        Returns sleep attribute (Rest)   
         """
-        if self._sleep == None:
-            return None
-        
-        else:
-            dict = {}
-            for key, value in vars(self._sleep).items():
-                    dict[key.replace("_", "", 1)] = value
-            return dict
+        return self._habits
+
 
     
     @sleep.setter
@@ -189,35 +173,15 @@ class Entry(Node):
     @property
     def habits(self):
         """
-        Returns a list of dictionary items
-        Keys:
-            name (string)
-            startime 
-            endtime
-            quality (string)
-            location (string)
-            amount (int)       
+        Returns habits attribute (list)   
         """
-        if self._habits == None:
-            return None
-        
-        else:
-            habs = []
-            dict = {}
-            for element in self._habits:
-                for key, value in vars(element).items():
-                    dict[key.replace("_", "", 1)] = value
-                habs.append(dict)
-                
-            return habs
-
+        return self._habits
 
     @habits.setter
     def habits(self, habit):
         """
         Expects a Habit object, append it to habits list
         """
-        print("SETTER CALLED")
         # NEED TO implement object type check 
         self._habits.append(habit)
     
@@ -228,8 +192,10 @@ class Entry(Node):
     # exercises attribute get, set, delete
     @property
     def exercises(self):
+        """
+        Returns exercises attribute (list)   
+        """
         return self._exercises
-
 
     @exercises.setter
     def exercises(self, exercise_obj):
@@ -240,7 +206,6 @@ class Entry(Node):
         # NEED TO implement object type check 
         self._exercises.append(exercise_obj)
 
-    
     @exercises.deleter
     def exercises(self):
         del self._exercises
@@ -324,7 +289,9 @@ class Entry(Node):
         # if "Other", prompt user to input new exercise name
         if exercise_name == "Other":
             exercise_name = input("\nAwesome, you did something new! What exercise did you do?\n").capitalize()
-        
+            other = cls.exercise_list.pop(len(cls.exercise_list)-1)
+            cls.exercise_list.append(exercise_name)
+            cls.exercise_list.append(other)
         exercise_location = input(f"\nWhere did '{exercise_name}' occur?\n").capitalize()
         exercise_start = input(f"\nWhat time of day did '{exercise_name}' begin?\n")  # TIME!
         exercise_end = input(f"\nWhat time of day did '{exercise_name}' end?\n")  # TIME!

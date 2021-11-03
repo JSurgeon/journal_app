@@ -55,3 +55,4 @@ print("\n~~~~~~~~~~~~~~~~~~~~\n~~~~~~~~~~~~~~~~~~~~\nTesting Entry.new()\n~~~~~~
 new_entry = Entry().new()
 print("\nPrinting entry object created with new()~~~~~~~~~~~~~\n")
 print(new_entry)
+
