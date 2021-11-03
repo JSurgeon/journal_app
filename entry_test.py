@@ -4,9 +4,9 @@ entry_1 = Entry()
 
 entry_2 = Entry()
 
-entry_1.next = entry_2
+entry_2.prev = entry_1
 
 
-print("~~~~~~~~~~~~~~~\nPRINTING ENTRY_1.NEXT\n~~~~~~~~~~~~~~~~~~~~~~")
-print(entry_1.next)
+print("~~~~~~~~~~~~~~~\nPRINTING ENTRY_2.Prev\n~~~~~~~~~~~~~~~~~~~~~~")
+print(entry_2.prev)
 

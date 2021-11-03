@@ -10,12 +10,13 @@ class Node:
 
     Instance Attributes:  
 
-        _next (Node)
+        next (Node)
+        prev (Node)
     """
 
     def __init__(self):
         self._next = None
-
+        self._prev = None
     @property
     def next(self):
         return self._next
@@ -27,6 +28,18 @@ class Node:
     @next.deleter
     def next(self):
         del self._next
+
+    @property
+    def prev(self):
+        return self._prev
+
+    @prev.setter
+    def prev(self, to_set):
+        self._prev = to_set
+        
+    @prev.deleter
+    def prev(self):
+        del self._prev
 
 class Entry(Node):
     """

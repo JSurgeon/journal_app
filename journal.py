@@ -1,5 +1,5 @@
 # file containing journal class
-from j_node import Node
+from entry import Entry
 
 
 class Journal():
@@ -10,7 +10,7 @@ class Journal():
     def __init__(self, filename):
         # Initialization needs to read in a file, store the contents using 
         # the Node class
-        self._head = Node()
+        self._head = Entry()
         
 
 
