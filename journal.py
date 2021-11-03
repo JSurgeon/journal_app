@@ -1,5 +1,6 @@
 # file containing journal class
 from entry import Entry
+import pandas as pd
 
 
 class Journal():
@@ -7,26 +8,29 @@ class Journal():
     Journal is a base class, responsible for CRUD operations of the entire collection of 
     entries 
 
-    Class Attributes:
-        
-        QUALITIES (list of strings)
-        
-        exercise_list (list of strings)
 
     Instance Attributes:
 
         head (Entry) points to first Entry in the collection
+        filename (string) string identifying the csv file the journal reads and writes from
     """
 
-    QUALITIES = ["Terrible", "Bad", "Okay", "Good", "Great"]
-    exercise_list = ["Basketball", "Run", "Walk", "Yoga", "Other"] # NEED TO MAKE DYNAMIC VIA ALL PAST ENTRIES; 
-                                                                #REORDER SO 'OTHER' IS AT THE END ALWAYS
-    def __init__(self, *args):
+                                                            #REORDER SO 'OTHER' IS AT THE END ALWAYS
+    def __init__(self):
         # Initialization needs to read in a file, store the contents 
-        self.filename = "FILLER"
+        self.filename = None
         self._head = None
+    
+    @classmethod
+    def read(cls, filename):
+        if filename:
+            cls._df = pd.read_csv(filename)
+        print(cls._df)
 
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"\
-        "~~ Creating new journal entry ~~\n"\
-        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+
+
+        
+
+
 

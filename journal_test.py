@@ -1,4 +1,4 @@
 from journal import *
 
-jounral = Journal()
+jounral = Journal(filename="ws")
 
