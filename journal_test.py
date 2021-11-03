@@ -1,4 +1,4 @@
 from journal import *
 
-jounral = Journal(filename="ws")
+jounral = Journal().read("csv_file.csv")
 
