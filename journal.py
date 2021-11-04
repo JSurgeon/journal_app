@@ -20,42 +20,48 @@ class Journal():
             ###### read file in and create dataframe
             self.dataframe = pd.read_csv(self.filename)
         
-        if("columns" in kwargs):
-            self.dataframe = pd.DataFrame(columns=kwargs["columns"])
+        if("entries" in kwargs):
+            self.dataframe = pd.DataFrame()
+            for entry in kwargs["entries"]:
+                df = pd.DataFrame({
+                "date" : [entry.date],
+                "time" : [entry.time],
+                "sleep_location" : [entry.sleep.location],
+                "fell_asleep_time" : [entry.sleep.startime],
+                "wake_up_time" : [entry.sleep.endtime],
+                "sleep_quality" : [entry.sleep.quality]
+                #### need habit and exercise data: may need to rethink how those are stored or
+                #### how this dataframe is created
+                })  
+                self.dataframe = self.dataframe.append(df)
+            
 
     @classmethod
     def read(cls, file):
         if file:
-            print("file called")
             return cls(filename=file)
         return None
     
     @classmethod
     def new(cls):
-        columns = ["sleep_location", "fell_asleep_time", "wake_up_time", "sleep_quality",\
-          "tobacco_bool", "tobacco_start_time", "tobacco_location", "cigs_count", "tobacco_quality",\
-          "alcohol_bool", "alcohol_start_time", "alcohol_location", "drinks_count",\
-          "exercise1_bool", "exercis1e_type", "exercis1e_loc", "exercise1_start", "exercise1_end", "exercise1_intensity", "exercise1_quality",\
-          "exercise2_bool","exercise2_type", "exercise2_loc", "exercise2_start", "exercise2_end",\
-          "exercise2_intensity", "exercise2_quality"]
-        
+
         response = input("Would you like to add a new entry? (y/n)")
         while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
             response = input("Unacceptable response: please respond with 'y' to add a new entry or 'n' not to")
 
+        entries_list = list()
         while response.capitalize() == 'Y':
+            
             new_entry = Entry().new()
 
-            # add new_entry to dataframe
-            #...
-            print(new_entry)
+            entries_list.append(new_entry)
 
             response = input("Would you like to add another entry?")
+
             while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
                 response = input("Unacceptable response: please respond with 'y' to add a new entry or 'n' not to")
 
-            
-        return cls(columns=columns)
+        return cls(entries=entries_list)
     
     # instance method self.write()
     def write(self, file):
@@ -69,4 +75,14 @@ class Journal():
         else:
             print(f"Journal object's dataframe successfully written to {file}")
             return True
-        
+
+
+
+
+
+# columns = ["sleep_location", "fell_asleep_time", "wake_up_time", "sleep_quality",\
+#   "tobacco_bool", "tobacco_start_time", "tobacco_location", "cigs_count", "tobacco_quality",\
+#   "alcohol_bool", "alcohol_start_time", "alcohol_location", "drinks_count",\
+#   "exercise1_bool", "exercis1e_type", "exercis1e_loc", "exercise1_start", "exercise1_end", "exercise1_intensity", "exercise1_quality",\
+#   "exercise2_bool","exercise2_type", "exercise2_loc", "exercise2_start", "exercise2_end",\
+#   "exercise2_intensity", "exercise2_quality"]

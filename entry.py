@@ -153,10 +153,8 @@ class Entry(Node):
         """
         Returns sleep attribute (Rest)   
         """
-        return self._habits
+        return self._sleep
 
-
-    
     @sleep.setter
     def sleep(self, rest):
         """

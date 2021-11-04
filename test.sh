@@ -1,4 +1,5 @@
-python entry_test.py << EOF
+python journal_test.py << EOF
+y
 entry_1
 12
 2
@@ -29,5 +30,6 @@ Outside
 11
 4
 5
+n
 n
 EOF
