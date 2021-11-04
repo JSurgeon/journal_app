@@ -1,4 +1,4 @@
-from journal import *
-
-jounral = Journal()
-
+from journal import Journal
+print("hello")
+j = Journal().new()
+print(j.dataframe)
