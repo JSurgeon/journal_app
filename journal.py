@@ -16,10 +16,14 @@ class Journal():
     """
     def __init__(self, **kwargs):
         if("filename" in kwargs):
-            self.filename = kwargs["filename"]
-            ###### read file in and create dataframe
-            self.dataframe = pd.read_csv(self.filename)
-        
+            try:
+                self.filename = kwargs["filename"]
+                self.dataframe = pd.read_csv(self.filename)
+            except:
+                print(f"{kwargs['filename']} does not exist")
+                self.filename = None
+                self.dataframe = None
+
         if("entries" in kwargs):
             self.dataframe = pd.DataFrame()
             for entry in kwargs["entries"]:
@@ -34,13 +38,14 @@ class Journal():
                 #### how this dataframe is created
                 })  
                 self.dataframe = self.dataframe.append(df)
-            
+        
+        else:
+            self.filename = None
+            self.dataframe = None
 
     @classmethod
     def read(cls, file):
-        if file:
-            return cls(filename=file)
-        return None
+        return cls(filename=file)
     
     @classmethod
     def new(cls):

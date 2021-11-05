@@ -1,10 +1,14 @@
 # File containing activity class and it's children
 from copy import copy, deepcopy
+from datetime import date, datetime, time
+
 class Activity:
     def __init__(self, name, start, end, quality, location):
         self._name = name
-        self._startime = int(start)
-        self._endtime = int(end)
+        start_time = start.split(":")
+        self._startime = time(int(start_time[0]),int(start_time[1]))
+        end_time = end.split(":")
+        self._endtime = time(int(end_time[0]),int(end_time[1]))
         self._quality = quality
         self._location = location
 

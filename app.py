@@ -1,6 +1,10 @@
-from entry import *
+from journal import Journal
+
+# # read in file 
+file_csv = "journal.csv"
+
+journal = Journal().read(file_csv)
+
+journal.write("journal.csv")
 
 
-entry = Entry()
-
-print(entry.habits)

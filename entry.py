@@ -101,6 +101,23 @@ class Entry(Node):
         return cls(date.today(), datetime.now(), cls.sleep_menu(), cls.habit_menu(), cls.exercise_menu())
         
         
+    def add_activity(self, activity):
+        if(isinstance(activity, Rest)):
+            return self._create_rest(activity)
+
+        elif(isinstance(activity, Habit)):
+            return self._create_habit(activity)
+        
+        return self._create_exercise(activity)
+
+    def _create_rest(self, obj):
+        return deepcopy(obj)
+
+    def _create_habit(self, obj):
+        return deepcopy(obj)
+
+    def _create_exercise(obj):
+        return deepcopy(obj)
 
     def __str__(self):
         
