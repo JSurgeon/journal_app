@@ -95,41 +95,113 @@ class Entry(Node):
     # def new(cls):
     #     return cls(date.today(), datetime.now(), cls.sleep_menu(), cls.habit_menu(), cls.exercise_menu())
 
-    def add_activity(self, added_activity):
-        """
-        Adds activity to appropriate instance attribute
-        Return True if successful, False otherwise
-        """
-        if added_activity:
+    # def add_activity(self, added_activity):
+    #     """
+    #     Adds activity to appropriate instance attribute
+    #     Return True if successful, False otherwise
+    #     """
+    #     if added_activity:
 
-            if isinstance(added_activity, date):
-                self._date = deepcopy(added_activity)
-                return True
+    #         if isinstance(added_activity, date):
+    #             self._date = deepcopy(added_activity)
+    #             return True
 
-            elif isinstance(added_activity, datetime):
-                self._time = deepcopy(added_activity)
-                return True
+    #         elif isinstance(added_activity, datetime):
+    #             self._time = deepcopy(added_activity)
+    #             return True
 
-            elif isinstance(added_activity, Rest):
-                self._sleep = deepcopy(added_activity)
-                return True
+    #         elif isinstance(added_activity, Rest):
+    #             self._sleep = deepcopy(added_activity)
+    #             return True
 
-            elif isinstance(added_activity, Habit):
-                habit = deepcopy(added_activity)
-                self._habits.append(habit)
-                return True
+    #         elif isinstance(added_activity, Habit):
+    #             habit = deepcopy(added_activity)
+    #             self._habits.append(habit)
+    #             return True
 
-            elif isinstance(added_activity, Exercise):
-                exercise = deepcopy(added_activity)
-                self._habits.append(exercise)
-                return True
+    #         elif isinstance(added_activity, Exercise):
+    #             exercise = deepcopy(added_activity)
+    #             self._habits.append(exercise)
+    #             return True
 
-            elif isinstance(added_activity, Activity):
-                activity = deepcopy(added_activity)
-                self._habits.append(activity)     
-                return True
+    #         elif isinstance(added_activity, Activity):
+    #             activity = deepcopy(added_activity)
+    #             self._habits.append(activity)     
+    #             return True
 
-        return False
+    #     return False
 
-            
+    def create_sleep(self, start, end, quality, location, interuptions):
+        return Rest("Sleep", start, end, quality, location, interuptions)  
 
+    @property
+    def date(self):
+        return self._date
+
+    @date.setter
+    def date(self, to_set):
+        self._date = to_set
+        
+    @date.deleter
+    def date(self):
+        del self._date
+
+    @property
+    def time(self):
+        return self._time
+
+    @time.setter
+    def time(self, to_set):
+        self._time = to_set
+        
+    @time.deleter
+    def time(self):
+        del self._time
+
+    @property
+    def sleep(self):
+        return self._sleep
+
+    @sleep.setter
+    def sleep(self, to_set):
+        self._sleep = to_set
+        
+    @sleep.deleter
+    def sleep(self):
+        del self._sleep
+
+    @property
+    def activities(self):
+        return self._activities
+
+    @activities.setter
+    def activities(self, to_set):
+        self._activities = to_set
+        
+    @activities.deleter
+    def activities(self):
+        del self._activities
+
+    @property
+    def habits(self):
+        return self._habits
+
+    @habits.setter
+    def habits(self, to_set):
+        self._habits = to_set
+        
+    @habits.deleter
+    def habits(self):
+        del self._habits
+
+    @property
+    def exercises(self):
+        return self._exercises
+
+    @exercises.setter
+    def exercises(self, to_set):
+        self._exercises = to_set
+        
+    @exercises.deleter
+    def exercises(self):
+        del self._exercises

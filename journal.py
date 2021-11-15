@@ -2,7 +2,8 @@
 # import dependencies
 
 from entry import Entry
-import pandas as pd
+
+
 
 class Journal():
     """
@@ -13,79 +14,67 @@ class Journal():
     Instance Attributes:
     
         filename (string) string identifying the csv file the journal reads and writes from
+        entries (list)
     """
     def __init__(self, **kwargs):
         if("filename" in kwargs):
             try:
                 self.filename = kwargs["filename"]
-                self.dataframe = pd.read_csv(self.filename)
             except:
                 print(f"{kwargs['filename']} does not exist")
                 self.filename = None
-                self.dataframe = pd.DataFrame()
 
-        if("entries" in kwargs):
-            self.dataframe = pd.DataFrame()
-            for entry in kwargs["entries"]:
-                df = pd.DataFrame({
-                "date" : [entry.date],
-                "time" : [entry.time],
-                "sleep_location" : [entry.sleep.location],
-                "fell_asleep_time" : [entry.sleep.startime],
-                "wake_up_time" : [entry.sleep.endtime],
-                "sleep_quality" : [entry.sleep.quality]
-                #### need habit and exercise data: may need to rethink how those are stored or
-                #### how this dataframe is created
-                })  
-                self.dataframe = self.dataframe.append(df)
-        
-        self._dataframe = pd.DataFrame()
+        else:
+            self.filename = None
+
     @classmethod
     def read(cls, file):
         return cls(filename=file)
     
     @classmethod
     def new(cls):
+        return cls()
 
-        response = input("\nWould you like to add a new entry? (y/n)\n")
-        while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
-            response = input("\nUnacceptable response, please respond with 'y' to add a new entry or 'n' not to:\n")
+    def create_entry(self, entry_dict):
+        """
+        Expects dictionary object with the following keys:
+            sleep_start, sleep_end, sleep_quality, sleep_location, sleep_interuptions,
+            habits
+            exercises 
 
-        entries_list = list()
-        while response.capitalize() == 'Y':
-            
-            new_entry = Entry().new()
-
-            entries_list.append(new_entry)
-
-            response = input("\nWould you like to add another entry?")
-
-            while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
-                response = input("Unacceptable response, please respond with 'y' to add a new entry or 'n' not to:\n")
-
-        return cls(entries=entries_list)
-    
-    @classmethod
-    def add_entry(self):
-        try:
-            self._temp_entry = Entry().new()
-            self.dataframe = self.dataframe.append(self._temp_entry)
-            return True
-        except:
+        """
+        if isinstance(entry_dict, dict) != True:
             return False
-
-    # instance method self.write()
-    def write(self, file):
-        try:
-            self.dataframe.to_csv(file)
         
-        except AttributeError:
-            print("\nJournal object is empty: dataframe attribute is Nonetype\n")
-            return False
-
         else:
-            print(f"\nJournal object's dataframe successfully written to {file}\n")
-            return True
+            entry = Entry()
+            entry.create_sleep(entry_dict["sleep_start"], entry_dict["sleep_end"], entry_dict["sleep_quality"], entry_dict["sleep_location"], entry_dict["sleep_interuption"])
+
+    
+        
+
+
+    # @classmethod
+    # def add_entry(self):
+    #     try:
+    #         self._temp_entry = Entry().new()
+    #         self.dataframe = self.dataframe.append(self._temp_entry)
+    #         return True
+    #     except:
+    #         return False
+
+    # # instance method self.write()
+    # def write(self, file):
+    #     try:
+    #         self.dataframe.to_csv(file)
+        
+    #     except AttributeError:
+    #         print("\nJournal object is empty: dataframe attribute is Nonetype\n")
+    #         return False
+
+    #     else:
+    #         print(f"\nJournal object's dataframe successfully written to {file}\n")
+    #         return True
 
     @property
     def temp_entry(self):
