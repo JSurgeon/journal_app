@@ -22,7 +22,7 @@ class Journal():
             except:
                 print(f"{kwargs['filename']} does not exist")
                 self.filename = None
-                self.dataframe = None
+                self.dataframe = pd.DataFrame()
 
         if("entries" in kwargs):
             self.dataframe = pd.DataFrame()
@@ -39,10 +39,7 @@ class Journal():
                 })  
                 self.dataframe = self.dataframe.append(df)
         
-        else:
-            self.filename = None
-            self.dataframe = None
-
+        self._dataframe = pd.DataFrame()
     @classmethod
     def read(cls, file):
         return cls(filename=file)
@@ -50,9 +47,9 @@ class Journal():
     @classmethod
     def new(cls):
 
-        response = input("Would you like to add a new entry? (y/n)")
+        response = input("\nWould you like to add a new entry? (y/n)\n")
         while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
-            response = input("Unacceptable response: please respond with 'y' to add a new entry or 'n' not to")
+            response = input("\nUnacceptable response, please respond with 'y' to add a new entry or 'n' not to:\n")
 
         entries_list = list()
         while response.capitalize() == 'Y':
@@ -61,25 +58,45 @@ class Journal():
 
             entries_list.append(new_entry)
 
-            response = input("Would you like to add another entry?")
+            response = input("\nWould you like to add another entry?")
 
             while (response.capitalize() != 'N') and (response.capitalize() != "Y"):
-                response = input("Unacceptable response: please respond with 'y' to add a new entry or 'n' not to")
+                response = input("Unacceptable response, please respond with 'y' to add a new entry or 'n' not to:\n")
 
         return cls(entries=entries_list)
     
+    @classmethod
+    def add_entry(self):
+        try:
+            self._temp_entry = Entry().new()
+            self.dataframe = self.dataframe.append(self._temp_entry)
+            return True
+        except:
+            return False
+
     # instance method self.write()
     def write(self, file):
         try:
             self.dataframe.to_csv(file)
         
         except AttributeError:
-            print("Journal object is empty: dataframe attribute is Nonetype")
+            print("\nJournal object is empty: dataframe attribute is Nonetype\n")
             return False
 
         else:
-            print(f"Journal object's dataframe successfully written to {file}")
+            print(f"\nJournal object's dataframe successfully written to {file}\n")
             return True
+
+    @property
+    def temp_entry(self):
+        return {
+                "date" : [self._temp_entry.date],
+                "time" : [self._temp_entry.time],
+                "sleep_location" : [self._temp_entry.sleep.location],
+                "fell_asleep_time" : [self._temp_entry.sleep.startime],
+                "wake_up_time" : [self._temp_entry.sleep.endtime],
+                "sleep_quality" : [self._temp_entry.sleep.quality]
+        }
 
 
 
